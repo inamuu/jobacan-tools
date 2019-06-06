@@ -2,11 +2,24 @@
 # -*- coding: utf-8 -*-
 
 import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
 import time
 import sys
 from selenium import webdriver
 
-def main():
+import click
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+@click.group()
+def subcommand():
+    pass
+
+@subcommand.command(help='打刻')
+def touch():
     if 'JOBCANEMAIL' not in os.environ:
       print('環境変数（JOBCANEMAIL）をセットしてください。')
       sys.exit()
@@ -29,5 +42,12 @@ def main():
     push.click()
     time.sleep(2)
     driver.quit()
+
+@subcommand.command(help='test')
+def test():
+    print('test')
+
+def main():
+    subcommand()
 
 if __name__ == "__main__": main()
