@@ -13,6 +13,8 @@ import click
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
+MAILADDR = os.environ.get('JOBCANEMAIL')
+LOGINPASS = os.environ.get('JOBCANPASSWORD')
 
 @click.group()
 def subcommand():
@@ -20,12 +22,9 @@ def subcommand():
 
 @subcommand.command(help='打刻')
 def touch():
-    if 'JOBCANEMAIL' not in os.environ:
-      print('環境変数（JOBCANEMAIL）をセットしてください。')
-      sys.exit()
-    elif 'JOBCANPASSWORD' not in os.environ:
-      print('環境変数（JOBCANPASSWORD）をセットしてください。')
-      sys.exit()
+    if 'MAILADDR' is None or 'LOGINPASS' is None:
+      print('認証情報をセットしてください。')
+      return
 
     try:
         driver = webdriver.Chrome(executable_path='/Applications/chromedriver')

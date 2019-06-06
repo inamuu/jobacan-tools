@@ -1,6 +1,12 @@
+jobcan tools
+
+===
+
+ジョブカン用のCLIツール
+
 ## 事前準備
 
-seleniumをインストールする。
+諸々ライブラリをインストールする。
 
 ```sh
 $ pip3 install -r requirementes.txt
@@ -9,19 +15,23 @@ $ pip3 install -r requirementes.txt
 下記からchromedriverをダウンロードして、Applicationフォルダーに配置する。
 https://sites.google.com/a/chromium.org/chromedriver/downloads
 
-## 認証情報をenvchainでセットする
+## 認証情報を.envにセットする
 
 ```sh
-envchain --set JOBCAN JOBCANEMAIL
-```
-```sh
-envchain --set JOBCAN JOBCANPASSWORD
+cp .env.sample .env
 ```
 
-## 実行方法
+## 機能
 
-envchainで環境変数を呼び出して実行する
+--help でヘルプ表示
 
 ```sh
-envchain JOBCAN python3 main.py
+   python main.py --help
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  touch  打刻
 ```
