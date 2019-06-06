@@ -45,8 +45,7 @@ def touch():
             print('打刻しました')
         else:
             print('既に打刻済みです')
-
-    except:
+   except:
         print('打刻に失敗しました')
     driver.quit()
     return
