@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 import time
 import sys
 from selenium import webdriver
-
 import click
 
 dotenv_path = join(dirname(__file__), '.env')
@@ -16,9 +15,20 @@ load_dotenv(dotenv_path)
 MAILADDR = os.environ.get('JOBCANEMAIL')
 LOGINPASS = os.environ.get('JOBCANPASSWORD')
 
+driver = webdriver.Chrome(executable_path='/Applications/chromedriver')
+driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
+
 @click.group()
 def subcommand():
     pass
+
+def jobcanlogin():
+    id = driver.find_element_by_id("user_email")
+    id.send_keys(MAILADDR)
+    password = driver.find_element_by_id("user_password")
+    password.send_keys(LOGINPASS)
+    element = driver.find_element_by_name("commit")
+    element.click()
 
 @subcommand.command(help='打刻')
 def touch():
@@ -27,24 +37,19 @@ def touch():
       return
 
     try:
-        driver = webdriver.Chrome(executable_path='/Applications/chromedriver')
-        driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
+        jobcanlogin()
+        status = driver.find_element_by_id('working_status').text
+        if status == '退室中':
+            push = driver.find_element_by_name("adit_item")
+            push.click()
+            print('打刻しました')
+        else:
+            print('既に打刻済みです')
 
-        id = driver.find_element_by_id("user_email")
-        id.send_keys(os.environ['JOBCANEMAIL'])
-        password = driver.find_element_by_id("user_password")
-        password.send_keys(os.environ['JOBCANPASSWORD'])
-        element = driver.find_element_by_name("commit")
-        element.click()
-
-        push = driver.find_element_by_name("adit_item")
-        push.click()
-        time.sleep(2)
-        driver.quit()
-
-        print('打刻しました')
     except:
         print('打刻に失敗しました')
+    driver.quit()
+    return
 
 def main():
     subcommand()
