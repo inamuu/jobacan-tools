@@ -27,25 +27,25 @@ def touch():
       print('環境変数（JOBCANPASSWORD）をセットしてください。')
       sys.exit()
 
-    driver = webdriver.Chrome(executable_path='/Applications/chromedriver')
-    driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
-    time.sleep(1)
+    try:
+        driver = webdriver.Chrome(executable_path='/Applications/chromedriver')
+        driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
 
-    id = driver.find_element_by_id("user_email")
-    id.send_keys(os.environ['JOBCANEMAIL'])
-    password = driver.find_element_by_id("user_password")
-    password.send_keys(os.environ['JOBCANPASSWORD'])
-    element = driver.find_element_by_name("commit")
-    element.click()
+        id = driver.find_element_by_id("user_email")
+        id.send_keys(os.environ['JOBCANEMAIL'])
+        password = driver.find_element_by_id("user_password")
+        password.send_keys(os.environ['JOBCANPASSWORD'])
+        element = driver.find_element_by_name("commit")
+        element.click()
 
-    push = driver.find_element_by_name("adit_item")
-    push.click()
-    time.sleep(2)
-    driver.quit()
+        push = driver.find_element_by_name("adit_item")
+        push.click()
+        time.sleep(2)
+        driver.quit()
 
-@subcommand.command(help='test')
-def test():
-    print('test')
+        print('打刻しました')
+    except:
+        print('打刻に失敗しました')
 
 def main():
     subcommand()
