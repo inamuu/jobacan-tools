@@ -13,6 +13,7 @@ $ pip3 install -r requirementes.txt
 ```
 
 下記からchromedriverをダウンロードして、Applicationフォルダーに配置する。
+※Chromeのバージョンによってファイル違うので注意！！！！！！
 https://sites.google.com/a/chromium.org/chromedriver/downloads
 
 ## 認証情報を.envにセットする
