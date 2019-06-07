@@ -1,5 +1,4 @@
 jobcan tools
-
 ===
 
 ジョブカン用のCLIツール
@@ -12,8 +11,8 @@ jobcan tools
 $ pip3 install -r requirementes.txt
 ```
 
-下記からchromedriverをダウンロードして、Applicationフォルダーに配置する。
-※Chromeのバージョンによってファイル違うので注意！！！！！！
+下記からchromedriverをダウンロードして、Applicationフォルダーに配置する。  
+※Chromeのバージョンによってファイル違うので注意！！！！！！  
 https://sites.google.com/a/chromium.org/chromedriver/downloads
 
 ## 認証情報を.envにセットする
@@ -24,7 +23,7 @@ cp .env.sample .env
 
 ## 機能
 
---help でヘルプ表示
+`--help` でヘルプ表示
 
 ```sh
    python main.py --help
