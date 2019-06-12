@@ -24,8 +24,8 @@ def jobcanlogin():
     driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
 
     if 'MAILADDR' is None or 'LOGINPASS' is None:
-      print('認証情報をセットしてください。')
-      return
+        print('認証情報をセットしてください。')
+        return
 
     id = driver.find_element_by_id("user_email")
     id.send_keys(MAILADDR)
