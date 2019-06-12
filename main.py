@@ -41,8 +41,8 @@ def touch():
         driver = jobcanlogin()
         status = driver.find_element_by_id('working_status').text
         if status == '未出勤' or '勤務中':
-            #push = driver.find_element_by_name("adit_item")
-            #push.click()
+            push = driver.find_element_by_name("adit_item")
+            push.click()
             print('打刻しました')
         elif status == '退室中':
             print('既に退室済みです')
