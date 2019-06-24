@@ -1,0 +1,47 @@
+function main() {
+  // 定数
+  var client_login_id = "";
+  var client_manager_login_id = "";
+  var client_login_password = "";
+  var LOGIN_URL = "https://ssl.jobcan.jp/login/client";
+
+  try {
+    // HTTPリクエストのパラメータをobjectで設定
+    // POSTで渡すフォームデータはpayloadで指定
+    var options = {
+      method: "post",
+      followRedirects: false,
+      contentType: "application/x-www-form-urlencoded",
+      payload: {
+        client_login_id: client_login_id,
+        client_manager_login_id: client_manager_login_id,
+        client_login_password: client_login_password,
+        save_login_info: '0',
+        login_type: '2',
+        url: "https://ssl.jobcan.jp/client/"
+      }
+    };
+    var response = UrlFetchApp.fetch(LOGIN_URL, options);
+
+    // レスポンスヘッダーからcookieを取得
+    var cookies = response.getHeaders()["Set-Cookie"];
+
+    // ログインで認証されたcookieはヘッダーで使用
+    var headers = { 'Cookie' : cookies };
+    var options_c = {
+      method : "get",
+      headers : headers,
+      followRedirects: true, //リダイレクトあり
+    };
+
+    var topUrl = "https://ssl.jobcan.jp/client/"
+    response = UrlFetchApp.fetch(topUrl, options_c);
+    var content = response.getContentText("UTF-8");
+    Logger.log(content);
+  } catch (e) {
+    Logger.log('\n' + JSON.stringify(e, null, '  '));
+  } finally {
+    return;
+  };
+}
+
