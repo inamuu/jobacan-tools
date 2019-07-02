@@ -1,6 +1,10 @@
 function login() {
+
+  // 共通
   var client_login_id = "";
   var LOGIN_URL = "https://ssl.jobcan.jp/login/client";
+
+  //会社全体
   var client_manager_login_id = "";
   var client_login_password = "";
 
@@ -20,6 +24,8 @@ function login() {
         url: "https://ssl.jobcan.jp/client/"
       }
     };
+
+    //ログイン処理
     var response = UrlFetchApp.fetch(LOGIN_URL, options);
 
     // レスポンスヘッダーからcookieを取得
