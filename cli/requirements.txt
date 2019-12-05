@@ -1,3 +1,5 @@
 selenium
 click
 chromedriver-binary
+python-dotenv
+
