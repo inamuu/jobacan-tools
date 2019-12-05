@@ -55,7 +55,6 @@ def touch():
 
 @subcommand.command(help='打刻エラーチェック')
 def checkerr():
-    print('打刻エラーをチェックします')
     try:
         driver = jobcanlogin()
         time.sleep(5)
