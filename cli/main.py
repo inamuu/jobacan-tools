@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import time
 import sys
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import chromedriver_binary
 import click
 
 dotenv_path = join(dirname(__file__), '.env')
@@ -20,7 +22,10 @@ def subcommand():
     pass
 
 def jobcanlogin():
-    driver = webdriver.Chrome(executable_path='/Applications/chromedriver')
+    options = Options()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(executable_path='/Applications/chromedriver', options=options)
+
     driver.get('https://id.jobcan.jp/users/sign_in?app_key=atd&redirect_to=https://ssl.jobcan.jp/jbcoauth/callback')
 
     if 'MAILADDR' is None or 'LOGINPASS' is None:
